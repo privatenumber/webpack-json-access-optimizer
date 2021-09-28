@@ -1,7 +1,7 @@
 {
 	"name": "webpack-json-access-optimizer",
 	"version": "0.0.0-semantic-release",
-	"description": "Tree-shake and minify JSON modules",
+	"description": "Tree-shake and minify JSON modules in Webpack",
 	"keywords": [
 		"webpack",
 		"plugin",
