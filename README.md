@@ -1,4 +1,4 @@
-# webpack-json-access-optimizer <a href="https://npm.im/webpack-json-access-optimizer"><img src="https://badgen.net/npm/v/webpack-json-access-optimizer"></a> <a href="https://npm.im/webpack-json-access-optimizer"><img src="https://badgen.net/npm/dm/webpack-json-access-optimizer"></a> <a href="https://packagephobia.now.sh/result?p=webpack-json-access-optimizer"><img src="https://packagephobia.now.sh/badge?p=webpack-json-access-optimizer"></a>
+# webpack-json-access-optimizer <a href="https://npm.im/webpack-json-access-optimizer"><img src="https://badgen.net/npm/v/webpack-json-access-optimizer"></a> <!-- <a href="https://npm.im/webpack-json-access-optimizer"><img src="https://badgen.net/npm/dm/webpack-json-access-optimizer"></a>--> <a href="https://packagephobia.now.sh/result?p=webpack-json-access-optimizer"><img src="https://packagephobia.now.sh/badge?p=webpack-json-access-optimizer"></a>
 
 Optimize JSON modules that are referenced via accessor function. For example, i18n locale JSONs.
 
