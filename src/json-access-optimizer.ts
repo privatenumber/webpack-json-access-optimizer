@@ -183,9 +183,13 @@ export class JsonAccessOptimizer {
 
 				for (const [jsonKey, jsonKeyUsageNodes] of jsonKeysUsedInModule) {
 					if (!jsonKeys.allJsonKeys.includes(jsonKey)) {
-						module.addWarning(
-							new WebpackError(`[${JsonAccessOptimizer.name}] JSON key "${jsonKey}" does not exist`),
-						);
+						const warningMessage = `[${JsonAccessOptimizer.name}] JSON key "${jsonKey}" does not exist`;
+						const warnings = Array.from(module.getWarnings() || []);
+						const hasWarning = warnings.some(warning => warning.message === warningMessage);
+
+						if (!hasWarning) {
+							module.addWarning(new WebpackError(warningMessage));
+						}
 						continue;
 					}
 
