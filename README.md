@@ -115,3 +115,10 @@ Type: `string`
 Required
 
 The name of the "global accessor function" that takes a JSON key and returns the JSON value. This function is typically provided via another plugin like [`ProvidePlugin`](https://webpack.js.org/plugins/provide-plugin/).
+
+### validateOnly
+Type: `Boolean`
+
+Default: `false`
+
+Only run validation on invalid keys or function misuse. Recommended for development.

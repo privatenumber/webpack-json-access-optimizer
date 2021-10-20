@@ -303,6 +303,49 @@ test('as optimization', async () => {
 	expect(value).toBe('someValue');
 });
 
+test('validateOnly', async () => {
+	const buildStats = await build({
+		'/src/index.js': 'export default __(\'nonExistentKey\');',
+		'/src/localize-function.js': `
+		import strings from './strings.json';
+		const __ = (key) => strings[key];
+		export default __;
+		`,
+		'/src/strings.json': JSON.stringify({
+			someUnusedKey: 'someValue1',
+		}),
+	}, (config) => {
+		config.module?.rules?.push({
+			test: /\.json$/,
+			loader: require.resolve('../dist/index'),
+		});
+
+		config.plugins?.push(
+			new webpack.ProvidePlugin({
+				__: ['./localize-function', 'default'],
+			}),
+			new JsonAccessOptimizer({
+				accessorFunctionName: '__',
+				validateOnly: true,
+			}),
+		);
+	});
+
+	expect(buildStats.hasWarnings()).toBe(true);
+	const [warning] = buildStats.compilation.warnings;
+	expect(warning.message).toMatch('[JsonAccessOptimizer] JSON key "nonExistentKey" does not exist');
+
+	const mfs = buildStats.compilation.compiler.outputFileSystem;
+	assertFsWithReadFileSync(mfs);
+
+	const distributionSource = mfs.readFileSync('/dist/index.js').toString();
+	expect(distributionSource).toMatch(/"someUnusedKey":"someValue1"/);
+
+	const mRequire = createFsRequire(mfs);
+	const value = mRequire('/dist/index.js');
+	expect(value).toBe(undefined);
+});
+
 describe('watch', () => {
 	test('removing a non-existent string should remove warning in watch mode', async () => {
 		await watch(
