@@ -126,6 +126,11 @@ export class JsonAccessOptimizer {
 			const normalModules = Array.from(modules).filter(
 				module => module instanceof NormalModule,
 			) as NormalModule[];
+
+			normalModules.sort(
+				(a, b) => a.request.localeCompare(b.request),
+			);
+
 			const jsonModules: ModuleWithMetaData[] = [];
 
 			let jsonKeys: {
@@ -181,11 +186,19 @@ export class JsonAccessOptimizer {
 					continue;
 				}
 
-				for (const [jsonKey, jsonKeyUsageNodes] of jsonKeysUsedInModule) {
+				const jsonKeysUsedInModuleSorted = Array.from(jsonKeysUsedInModule).sort(
+					(a, b) => a[0].localeCompare(b[0]),
+				);
+
+				for (const [jsonKey, jsonKeyUsageNodes] of jsonKeysUsedInModuleSorted) {
 					if (!jsonKeys.allJsonKeys.includes(jsonKey)) {
-						module.addWarning(
-							new WebpackError(`[${JsonAccessOptimizer.name}] JSON key "${jsonKey}" does not exist`),
-						);
+						const warningMessage = `[${JsonAccessOptimizer.name}] JSON key "${jsonKey}" does not exist`;
+						const warnings = Array.from(module.getWarnings() || []);
+						const hasWarning = warnings.some(warning => warning.message === warningMessage);
+
+						if (!hasWarning) {
+							module.addWarning(new WebpackError(warningMessage));
+						}
 						continue;
 					}
 
@@ -210,7 +223,7 @@ export class JsonAccessOptimizer {
 						}
 
 						const { loc: depLoc } = dep;
-						const matchingDep = module.presentationalDependencies.findIndex(
+						const matchingDepIndex = module.presentationalDependencies.findIndex(
 							(existingDep) => {
 								if (
 									existingDep instanceof ConstDependency
@@ -227,8 +240,16 @@ export class JsonAccessOptimizer {
 							},
 						);
 
-						if (matchingDep > -1) {
-							module.presentationalDependencies.splice(matchingDep, 1, dep);
+						if (matchingDepIndex > -1) {
+							const existingDep = module.presentationalDependencies[matchingDepIndex];
+							if (
+								existingDep instanceof ConstDependency
+								&& existingDep.expression === dep.expression
+							) {
+								continue;
+							}
+
+							module.presentationalDependencies.splice(matchingDepIndex, 1, dep);
 						} else {
 							module.addPresentationalDependency(dep);
 						}
