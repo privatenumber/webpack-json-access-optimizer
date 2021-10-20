@@ -186,7 +186,9 @@ export class JsonAccessOptimizer {
 					continue;
 				}
 
-				const jsonKeysUsedInModuleSorted = Array.from(jsonKeysUsedInModule).sort((a, b) => a[0].localeCompare(b[0]));
+				const jsonKeysUsedInModuleSorted = Array.from(jsonKeysUsedInModule).sort(
+					(a, b) => a[0].localeCompare(b[0]),
+				);
 
 				for (const [jsonKey, jsonKeyUsageNodes] of jsonKeysUsedInModuleSorted) {
 					if (!jsonKeys.allJsonKeys.includes(jsonKey)) {
