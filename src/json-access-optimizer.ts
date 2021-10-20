@@ -128,7 +128,7 @@ export class JsonAccessOptimizer {
 			) as NormalModule[];
 
 			normalModules.sort(
-				(a, b) => a.request.localeCompare(b.request)
+				(a, b) => a.request.localeCompare(b.request),
 			);
 
 			const jsonModules: ModuleWithMetaData[] = [];
