@@ -17,7 +17,7 @@ specifiers:
   typescript: ^4.4.4
   unionfs: ^4.4.0
   webpack: 5.37.0
-  webpack-test-utils: github:privatenumber/webpack-test-utils#built
+  webpack-test-utils: ^1.0.0
 
 dependencies:
   '@types/estree': 0.0.50
@@ -38,7 +38,7 @@ devDependencies:
   typescript: 4.4.4
   unionfs: 4.4.0
   webpack: 5.37.0
-  webpack-test-utils: github.com/privatenumber/webpack-test-utils/a0d182593a3370cb2b3b49dcf32e41f341acd9d6_webpack@5.37.0
+  webpack-test-utils: 1.0.0_webpack@5.37.0
 
 packages:
 
@@ -5195,6 +5195,17 @@ packages:
       source-map: 0.6.1
     dev: true
 
+  /webpack-test-utils/1.0.0_webpack@5.37.0:
+    resolution: {integrity: sha512-6znws8PI+1jQXlNuwULUtRYIZjy4ZtBXxWBmmoin/GFxDex6YCs9YC9sjH+vuxOHpJOP0ZFkdSCTAyrmMSJ53w==}
+    peerDependencies:
+      webpack: ^4.40.0 || ^5.0.0
+    dependencies:
+      fs-require: 1.4.0
+      memfs: 3.3.0
+      unionfs: 4.4.0
+      webpack: 5.37.0
+    dev: true
+
   /webpack/5.37.0:
     resolution: {integrity: sha512-yvdhgcI6QkQkDe1hINBAJ1UNevqNGTVaCkD2SSJcB8rcrNNl922RI8i2DXUAuNfANoxwsiXXEA4ZPZI9q2oGLA==}
     engines: {node: '>=10.13.0'}
@@ -5367,18 +5378,4 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  github.com/privatenumber/webpack-test-utils/a0d182593a3370cb2b3b49dcf32e41f341acd9d6_webpack@5.37.0:
-    resolution: {commit: a0d182593a3370cb2b3b49dcf32e41f341acd9d6, repo: git+ssh://git@github.com/privatenumber/webpack-test-utils.git, type: git}
-    id: github.com/privatenumber/webpack-test-utils/a0d182593a3370cb2b3b49dcf32e41f341acd9d6
-    name: webpack-test-utils
-    version: 1.0.0
-    peerDependencies:
-      webpack: ^4.40.0 || ^5.0.0
-    dependencies:
-      fs-require: 1.4.0
-      memfs: 3.3.0
-      unionfs: 4.4.0
-      webpack: 5.37.0
     dev: true
