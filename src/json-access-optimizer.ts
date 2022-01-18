@@ -122,6 +122,8 @@ export class JsonAccessOptimizer {
 	optimizeJsonModules(
 		compilation: Compilation,
 	) {
+		const { validateOnly } = this.options;
+
 		compilation.hooks.finishModules.tapPromise(JsonAccessOptimizer.name, async (modules) => {
 			const normalModules = Array.from(modules).filter(
 				module => module instanceof NormalModule,
@@ -202,6 +204,10 @@ export class JsonAccessOptimizer {
 						continue;
 					}
 
+					if (validateOnly) {
+						continue;
+					}
+
 					let keyIndex = optimizedJsonKeys.indexOf(jsonKey);
 					if (keyIndex === -1) {
 						keyIndex = optimizedJsonKeys.push(jsonKey) - 1;
@@ -255,6 +261,10 @@ export class JsonAccessOptimizer {
 						}
 					}
 				}
+			}
+
+			if (validateOnly) {
+				return;
 			}
 
 			await Promise.all(

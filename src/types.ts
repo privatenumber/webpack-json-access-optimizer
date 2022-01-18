@@ -4,6 +4,7 @@ import type { Expression } from 'estree';
 
 export type PluginOptions = {
 	accessorFunctionName: string;
+	validateOnly?: boolean;
 };
 
 export type JsonKeys = string[];
