@@ -42,6 +42,9 @@ Note:
 - The JSON is minified into an array, and the accessor now uses the array indices to access values
 - Unused entries are removed from the JSON
 
+## 🖥 Demo
+<https://github.com/KumarAbhirup/webpack-treeshaking-json>
+
 ## 🚀 Install
 ```sh
 npm i -D webpack-json-access-optimizer
